@@ -2,7 +2,7 @@
 
 LeadFlow Mini CRM is a full-stack lead management system built for a digital agency. It connects a WordPress lead form with a Node.js/Express API, MongoDB, a React CRM dashboard, and a small Angular insights view.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - WordPress / PHP
 - Node.js
@@ -13,7 +13,7 @@ LeadFlow Mini CRM is a full-stack lead management system built for a digital age
 - Angular
 - JWT Authentication
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 leadflow-mini-crm/
