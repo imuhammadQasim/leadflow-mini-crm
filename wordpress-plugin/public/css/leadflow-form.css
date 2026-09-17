@@ -1,0 +1,103 @@
+.leadflow-form {
+	max-width: 640px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	font-size: 15px;
+}
+
+.leadflow-form__row {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.leadflow-form__row--half {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+/* Stack the two-column rows (email/phone, service/budget) on narrow
+   screens so the form stays usable on mobile, per the responsiveness
+   requirement. */
+@media (max-width: 480px) {
+	.leadflow-form__row--half {
+		grid-template-columns: 1fr;
+	}
+}
+
+.leadflow-form label {
+	font-weight: 600;
+}
+
+.leadflow-form input,
+.leadflow-form select,
+.leadflow-form textarea {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px 12px;
+	border: 1px solid #ccd0d4;
+	border-radius: 6px;
+	font-size: 15px;
+	font-family: inherit;
+}
+
+.leadflow-form input:focus,
+.leadflow-form select:focus,
+.leadflow-form textarea:focus {
+	outline: none;
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.leadflow-form input.leadflow-field--invalid,
+.leadflow-form select.leadflow-field--invalid,
+.leadflow-form textarea.leadflow-field--invalid {
+	border-color: #d63638;
+}
+
+.leadflow-form__submit {
+	align-self: flex-start;
+	background: #111827;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 12px 20px;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.leadflow-form__submit:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.leadflow-form__errors {
+	display: none;
+	background: #fcf0f1;
+	border: 1px solid #d63638;
+	color: #7a1a1c;
+	border-radius: 6px;
+	padding: 10px 14px;
+	font-size: 14px;
+}
+
+.leadflow-form__errors.is-visible {
+	display: block;
+}
+
+.leadflow-form__errors ul {
+	margin: 4px 0 0;
+	padding-left: 18px;
+}
+
+.leadflow-form__success {
+	background: #edfaef;
+	border: 1px solid #2a9d4a;
+	color: #1e6b34;
+	border-radius: 6px;
+	padding: 14px;
+	font-size: 15px;
+}
