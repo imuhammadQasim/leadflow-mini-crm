@@ -1,0 +1,92 @@
+<div class="insights">
+  <header class="insights__header">
+    <h1>Lead Insights</h1>
+    @if (token) {
+      <button type="button" class="btn btn--ghost" (click)="logout()">Log out</button>
+    }
+  </header>
+
+  <!-- Logged out: simplified login form (see class-level comment for why). -->
+  @if (!token) {
+    <form class="card login-form" (ngSubmit)="login()">
+      <p class="muted">Log in with your LeadFlow admin account to view insights.</p>
+
+      @if (loginError) {
+        <p class="error">{{ loginError }}</p>
+      }
+
+      <label>
+        Email
+        <input type="email" name="email" [(ngModel)]="email" required />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" [(ngModel)]="password" required />
+      </label>
+
+      <button type="submit" class="btn" [disabled]="loggingIn">
+        {{ loggingIn ? 'Signing in...' : 'Sign in' }}
+      </button>
+    </form>
+  }
+
+  <!-- Logged in -->
+  @if (token) {
+    @if (loading) {
+      <p class="muted">Loading statistics...</p>
+    }
+
+    @if (error) {
+      <div class="card error-card">
+        <p class="error">{{ error }}</p>
+        <button type="button" class="btn" (click)="fetchStats()">Retry</button>
+      </div>
+    }
+
+    @if (!loading && !error && stats) {
+      <section class="cards">
+        <div class="card stat-card">
+          <p class="stat-card__label">Total Leads</p>
+          <p class="stat-card__value">{{ stats.total }}</p>
+        </div>
+        @for (status of statusOrder; track status) {
+          <div class="card stat-card">
+            <p class="stat-card__label">{{ status }}</p>
+            <p class="stat-card__value">{{ stats.byStatus[status] ?? 0 }}</p>
+          </div>
+        }
+      </section>
+
+      <section class="card">
+        <h2>Top 5 Leads by Score</h2>
+
+        @if (stats.topLeadsByScore.length === 0) {
+          <p class="muted">No leads yet.</p>
+        } @else {
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (lead of stats.topLeadsByScore; track lead._id) {
+                <tr>
+                  <td>{{ lead.name }}</td>
+                  <td>{{ lead.email }}</td>
+                  <td>{{ lead.status }}</td>
+                  <td class="score">{{ lead.leadScore }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </section>
+
+      <button type="button" class="btn btn--ghost" (click)="fetchStats()">Refresh</button>
+    }
+  }
+</div>
